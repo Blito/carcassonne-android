@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Score.qml</file>
+        <file>Submit.qml</file>
+        <file>NewGame.qml</file>
+        <file>StartScreen.qml</file>
+    </qresource>
+</RCC>
