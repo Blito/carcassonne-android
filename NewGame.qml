@@ -3,8 +3,10 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 Item {
-    id: newGame
+    id: menu
     anchors.fill: parent
+
+    signal startGame()
 
     Layout.fillWidth: true
     ColumnLayout {
@@ -63,6 +65,7 @@ Item {
         Button {
             text: "Start Game"
             Layout.fillWidth: true
+            onClicked: menu.startGame()
         }
     }
 }

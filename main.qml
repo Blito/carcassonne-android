@@ -8,19 +8,73 @@ ApplicationWindow {
     width: 640
     height: 480
     title: qsTr("Carcassone")
+    Rectangle {
+        id: appWindow
+        state: "start"
 
-    toolBar: ToolBar {
-        RowLayout {
-            anchors.fill: parent
-            anchors.margins: spacing
-            Label {
-                text: "Carcassone"
+        anchors.fill: parent
+
+        states: [
+            State {
+                name: "newGame"
+                PropertyChanges {target: newGameScreen; visible: true}
+                PropertyChanges {target: startScreen; visible: false}
+                PropertyChanges {target: playingScreen; visible: false}
+            },
+            State {
+                name: "start"
+                PropertyChanges {target: newGameScreen; visible: false}
+                PropertyChanges {target: startScreen; visible: true}
+                PropertyChanges {target: playingScreen; visible: false}
+            },
+            State {
+                name: "playing"
+                PropertyChanges {target: newGameScreen; visible: false}
+                PropertyChanges {target: startScreen; visible: false}
+                PropertyChanges {target: playingScreen; visible: true}
+            }
+        ]
+
+        NewGame {
+            id: newGameScreen
+            onStartGame: {
+                appWindow.state = "playing"
             }
         }
-    }
 
-    NewGame {
-        id: startScreen
-        anchors.fill: parent
+        StartScreen {
+            id: startScreen
+
+            onNewGame: {
+                appWindow.state = "newGame"
+            }
+        }
+
+        TabView {
+            id: playingScreen
+            anchors.fill: parent
+            frameVisible: false
+
+            Tab {
+                title: "Rankings"
+                Score {
+                    id: scoreScreen
+
+                    onEndGame: {
+                        console.log("Game ended.")
+                    }
+                }
+            }
+            Tab {
+                title: "Submit score"
+                Submit {
+                    id: submitScreen
+
+                    onSubmit: {
+                        console.log("Submitted")
+                    }
+                }
+            }
+        }
     }
 }

@@ -3,8 +3,10 @@ import QtQuick.Controls 1.0
 import QtQuick.Layouts 1.3
 
 Item {
-    id: score
+    id: menu
     anchors.fill: parent
+
+    signal endGame()
 
     Layout.fillWidth: true
 
@@ -65,6 +67,7 @@ Item {
         Button {
             text: "End Game"
             Layout.fillWidth: true
+            onClicked: menu.endGame()
         }
     }
 }

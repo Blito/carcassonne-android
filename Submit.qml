@@ -3,7 +3,9 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 ScrollView {
-    id: page
+    id: menu
+
+    signal submit()
 
     implicitWidth: 640
     implicitHeight: 400
@@ -13,8 +15,8 @@ ScrollView {
     Item {
         id: content
 
-        width: Math.max(page.viewport.width, column.implicitWidth + 2 * column.spacing)
-        height: Math.max(page.viewport.height, column.implicitHeight + 2 * column.spacing)
+        width: Math.max(menu.viewport.width, column.implicitWidth + 2 * column.spacing)
+        height: Math.max(menu.viewport.height, column.implicitHeight + 2 * column.spacing)
 
         Layout.fillWidth: true
 
@@ -91,6 +93,7 @@ ScrollView {
             Button {
                 text: "Submit"
                 Layout.fillWidth: true
+                onClicked: menu.submit()
             }
         }
     }
