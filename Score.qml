@@ -1,5 +1,6 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.0
+import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.3
 
 Item {
@@ -9,6 +10,16 @@ Item {
     signal endGame()
 
     Layout.fillWidth: true
+
+    MessageDialog {
+        id: confirmDialog
+        visible: false
+        title: "End the game"
+        icon: StandardIcon.Question
+        text: "Are you sure?"
+        standardButtons: StandardButton.Yes | StandardButton.No
+        onYes: endGame()
+    }
 
     ColumnLayout {
         id: column
@@ -67,7 +78,9 @@ Item {
         Button {
             text: "End Game"
             Layout.fillWidth: true
-            onClicked: menu.endGame()
+            onClicked: {
+                confirmDialog.visible = true;
+            }
         }
     }
 }
