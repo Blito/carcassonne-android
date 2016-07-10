@@ -5,6 +5,8 @@ import QtQuick.Controls 1.2
 ScrollView {
     id: menu
 
+    property var model;
+
     signal submit()
 
     implicitWidth: 640

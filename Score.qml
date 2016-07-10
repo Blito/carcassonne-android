@@ -7,6 +7,8 @@ Item {
     id: menu
     anchors.fill: parent
 
+    property var model;
+
     signal endGame()
 
     Layout.fillWidth: true

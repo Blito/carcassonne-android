@@ -5,5 +5,8 @@
         <file>Submit.qml</file>
         <file>NewGame.qml</file>
         <file>StartScreen.qml</file>
+        <file>Player.qml</file>
+        <file>NewPlayer.qml</file>
+        <file>model.js</file>
     </qresource>
 </RCC>

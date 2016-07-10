@@ -6,6 +6,8 @@ Item {
     id: menu
     anchors.fill: parent
 
+    property var model;
+
     signal startGame()
 
     Layout.fillWidth: true
@@ -14,6 +16,7 @@ Item {
         anchors.fill: parent
         anchors.margins: column.spacing
 
+        spacing: 20;
 
         Text {
             id: labelNewGame;
@@ -26,37 +29,28 @@ Item {
             Layout.fillWidth: true
         }
 
-        GridLayout {
-            id: grid
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+        Column {
+            id: players
             Layout.fillWidth: true
-            columns: 2
 
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: labelNewGame.bottom
             anchors.topMargin: 20
-            anchors.bottomMargin: 20
+            anchors.bottomMargin: 50
             anchors.leftMargin: 20
             anchors.rightMargin: 20
 
-            // Player 1
-            TextField { text: "Ruso"; placeholderText: "Jugador 1"; Layout.fillWidth: false; z: 1 }
-            Rectangle { Layout.fillHeight: true; Layout.fillWidth: true; Layout.maximumHeight: 20; Layout.maximumWidth: 40; Layout.minimumWidth: 40; color: "red"; anchors.right: parent.right }
+            NewPlayer { id:ruso; name: "Ruso"; color: "red"; }
 
-            // Player 2
-            TextField { text: "Lauta"; placeholderText: "Jugador 2"; Layout.fillWidth: false; z: 1 }
-            Rectangle { Layout.fillHeight: true; Layout.fillWidth: true; Layout.maximumHeight: 20; Layout.maximumWidth: 40; Layout.minimumWidth: 40; color: "blue"; anchors.right: parent.right }
+        }
 
-            // Player 3
-            TextField { placeholderText: "Jugador 3"; Layout.fillWidth: false; z: 1 }
-            Rectangle { Layout.fillHeight: true; Layout.fillWidth: true; Layout.maximumHeight: 20; Layout.maximumWidth: 40; Layout.minimumWidth: 40; color: "green"; anchors.right: parent.right }
-
-            Button {
-                text: "Add Player"
-                Layout.fillWidth: true
-                Layout.rowSpan: 2
-                anchors.right: parent.right
+        Button {
+            text: "Add Player"
+            Layout.fillWidth: true
+            anchors.top: players.bottom
+            onClicked: {
+                menu.model.newPlayerUI.createObject(players, {"name": "Rusingui", "color": "red"});
             }
         }
 

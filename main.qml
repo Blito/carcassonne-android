@@ -3,6 +3,8 @@ import QtQuick.Controls 1.3
 import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.3
 
+import "model.js" as Carcassonne
+
 ApplicationWindow {
     visible: true
     width: 640
@@ -37,8 +39,9 @@ ApplicationWindow {
 
         NewGame {
             id: newGameScreen
+            model: Carcassonne.model;
             onStartGame: {
-                appWindow.state = "playing"
+                appWindow.state = "playing";
             }
         }
 
@@ -46,6 +49,7 @@ ApplicationWindow {
             id: startScreen
 
             onNewGame: {
+                Carcassonne.model.newGame();
                 appWindow.state = "newGame"
             }
         }
@@ -59,6 +63,7 @@ ApplicationWindow {
                 title: "Rankings"
                 Score {
                     id: scoreScreen
+                    model: Carcassonne.model;
 
                     onEndGame: {
                         console.log("Game ended.")
@@ -69,6 +74,7 @@ ApplicationWindow {
                 title: "Submit score"
                 Submit {
                     id: submitScreen
+                    model: Carcassonne.model;
 
                     onSubmit: {
                         console.log("Submitted")
