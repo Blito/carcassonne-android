@@ -23,8 +23,10 @@ Item {
             id: textField;
             placeholderText: newPlayer.name;
             onEditingFinished: {
-                newPlayer.name = text;
-                console.log(newPlayer.name);
+                if (text !== '') {
+                    newPlayer.name = text;
+                    console.log(newPlayer.name);
+                }
             }
         }
 

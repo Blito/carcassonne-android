@@ -5,23 +5,51 @@ var Player = function(name, color) {
 }
 
 var Model = function() {
+
+    this.MAX_PLAYERS = 5;
+
+    this.colors = [
+             "red",
+             "green",
+             "blue",
+             "yellow",
+             "black"
+         ];
+
+    // Loads up components for faster UI loading
     this.newGame = function () {
-        console.log("Model: New Game");
         if (!this.newPlayerUI) {
             this.newPlayerUI = Qt.createComponent("NewPlayer.qml");
-            console.log(this.newPlayerUI);
         }
 
         if (!this.playerUI) {
             this.playerUI = Qt.createComponent("Player.qml")
         }
 
-        this.players = []
+        this.playersUIs = [];
+        this.players = [];
     };
 
-    this.addPlayer = function (name, color) {
-        this.players.push(new Player(name, color));
+    // Creates a new Player, UI and data
+    // Returns true if there is room for more players
+    this.newPlayer = function (ui_parent) {
+        if (this.playersUIs.length >= this.MAX_PLAYERS)
+            return false;
+
+        var placeholder_name = "Player " + (this.playersUIs.length + 1);
+        this.playersUIs.push(this.newPlayerUI.createObject(ui_parent, {"name": placeholder_name, "color": this.colors[this.playersUIs.length]}));
+
+        return this.playersUIs.length < this.MAX_PLAYERS;
     };
+
+    this.startGame = function() {
+        // TODO: Check that names and colors are unique between players
+        var self = this;
+        this.playersUIs.forEach(function(player) {
+            self.players.push(new Player(player.name, player.color));
+        });
+    };
+
 }
 
 var model = new Model();

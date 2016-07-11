@@ -2,13 +2,26 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
+/*
+  Manages setup of players and other configurations before
+  starting the match.
+
+  The game begins when signal gameStarted() is fired.
+  */
+
 Item {
     id: menu
     anchors.fill: parent
 
     property var model;
 
-    signal startGame()
+    signal gameStarted()
+
+    Component.onCompleted: {
+        this.model.newGame();
+        this.model.newPlayer(players);
+        this.model.newPlayer(players);
+    }
 
     Layout.fillWidth: true
     ColumnLayout {
@@ -40,17 +53,17 @@ Item {
             anchors.bottomMargin: 50
             anchors.leftMargin: 20
             anchors.rightMargin: 20
-
-            NewPlayer { id:ruso; name: "Ruso"; color: "red"; }
-
         }
 
         Button {
+            id: addButton
             text: "Add Player"
             Layout.fillWidth: true
             anchors.top: players.bottom
             onClicked: {
-                menu.model.newPlayerUI.createObject(players, {"name": "Rusingui", "color": "red"});
+                var room_for_more = menu.model.newPlayer(players);
+
+                addButton.enabled = room_for_more;
             }
         }
 
@@ -59,7 +72,10 @@ Item {
         Button {
             text: "Start Game"
             Layout.fillWidth: true
-            onClicked: menu.startGame()
+            onClicked: {
+                model.startGame();
+                menu.gameStarted();
+            }
         }
     }
 }

@@ -40,7 +40,7 @@ ApplicationWindow {
         NewGame {
             id: newGameScreen
             model: Carcassonne.model;
-            onStartGame: {
+            onGameStarted: {
                 appWindow.state = "playing";
             }
         }
@@ -49,7 +49,6 @@ ApplicationWindow {
             id: startScreen
 
             onNewGame: {
-                Carcassonne.model.newGame();
                 appWindow.state = "newGame"
             }
         }
